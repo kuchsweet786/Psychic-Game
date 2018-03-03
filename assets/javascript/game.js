@@ -1,35 +1,40 @@
-updateLetterToGuess();
-updateGuessesLeft();
-updateGuessesSoFar();
-
-var userGuess = {
 
 
-    document.onkeyup = function () {
 
-    if (userGuess === letterToGuess) {
+var compChoice = ["a","b","c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w","x", "y", "z"];
+
+var wins = 0;
+var losses = 0;
+var guessesLeft = 9;
+var guessesSoFar = [];
+var userGuess = null;
+
+var letterToBeGuessed = compChoice[Math.floor(Math.random() * compChoice.length)];
+
+
+
+document.onkeyup = function (event) {
+
+    var playerChoice = event.key;
+    if (letterToBeGuessed === playerChoice ) {
         wins++;
-        document.querySelector('#wins').innerHTML = "Wins: " + wins;
-        console.log();
+        guessesLeft = 9;
+        console.log("You won!");
+        console.log(wins);
 
-        alert("Yes, the letter was " + computerGuess.toUpperCase());
-        alert("Yes, you are psychic!");
-        reset();
+    } else {
+        if(guessesLeft > 0)  {
+            guessesLeft--;
+            console.log(guessesLeft);
+        }
+        if(guessesLeft === 0) {
+            losses--;
+            guessesLeft = 9;
+            console.log('You Lost');
+            console.log(losses);
+        }
     }
+    var html = "<h1> The Psychic Game </h1> " + "<p> Guess What Letter I am thinking of</p>" + "<p> Wins: </p>" + " <p> Losses: </p>" + "<p> Guesses Left:</p>" + "<p> Your Guesses So Far:</p>";
 
-    else if(guessesLeft === 0){
-        // Then we will loss and we'll update the html to display the loss
-        losses++;
-        document.querySelector('#losses').innerHTML = "Losses: " + losses;
-        alert("Sorry, the correct letter was " + computerGuess.toUpperCase() + " maybe try again?");
-        alert("Sorry, you're not psychic, maybe try again?");
-        // Then we'll call the reset.
-        reset();
-    }
+};
 
-
-
-    // this is the closing of the entire doc.
-}
-
-}
